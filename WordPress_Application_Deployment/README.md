@@ -1,5 +1,4 @@
-
-This challenge is based on the example posted on Kubernetes Documentation: https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/
+Reference: https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/
 
 # NFS
 
@@ -142,7 +141,7 @@ This challenge is based on the example posted on Kubernetes Documentation: https
       $ ls -lh /html
 
 
-# Helm
+# Helm (Optional)
 
 Helm is a tool for managing Kubernetes charts. Charts are packages of pre-configured Kubernetes resources.
 
