@@ -110,7 +110,7 @@ Reference: https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordp
     $ ls -lh /mysql
 
 
-  ## Deploy Wordpress with it's service "NodePort", image "mohamedayman/wordpress"
+  ## Deploy Wordpress with it's service "NodePort"
 
       $ kubectl create -f 05-wordpress-deploy.yml
 
