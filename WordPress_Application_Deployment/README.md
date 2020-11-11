@@ -9,6 +9,8 @@ Reference: https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordp
     $ chmod u+x nfs.sh
 
     $ sudo ./nfs.sh
+ 
+ Note: If you do not have NFS Server setup, you can make use of hostPath in PV. Refer: wordpress-mysql-hostpath.yaml
 
 
 # K8s
@@ -143,34 +145,37 @@ Reference: https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordp
 
 # Helm (Optional)
 
-Helm is a tool for managing Kubernetes charts. Charts are packages of pre-configured Kubernetes resources.
-
-##Use Helm to:
-
-Find and use popular software packaged as Helm charts to run in Kubernetes
-
-Share your own applications as Helm charts
-
-Create reproducible builds of your Kubernetes applications
-
-Intelligently manage your Kubernetes manifest files
-
-Manage releases of Helm packages
-
-
-### Helm in a Handbasket
-
-- Helm has two parts: a client (helm) and a server (tiller)
-Tiller runs inside of your Kubernetes cluster, and manages releases (installations) of your charts.
-
-- Helm runs on your laptop, CI/CD, or wherever you want it to run.
-Charts are Helm packages that contain at least two things:
-A description of the package (Chart.yaml)
-
-- One or more templates, which contain Kubernetes manifest files
-Charts can be stored on disk, or fetched from remote chart repositories (like Debian or RedHat packages)
-
 ### Installing the helm client
+
+### Method 1: Installing Helm and Tiller.
+
+- Install helm with bash commands
+
+   curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
+
+- Add a service account within a namespace to segregate tiller
+
+    kubectl --namespace kube-system create sa tiller
+
+- reate a cluster role binding for tiller
+   
+   kubectl create clusterrolebinding tiller \
+       --clusterrole cluster-admin \
+       --serviceaccount=kube-system:tiller
+
+- Initialized helm within the tiller service account
+
+   helm init --service-account tiller
+
+- Updates the repos for Helm repo integration
+
+   helm repo update
+
+- Verify that helm is installed in the cluster.
+
+   kubectl get deploy,svc tiller-deploy -n kube-system
+   
+### Method 2: Installing Helm and Tiller.
 
 - Download your desired version https://github.com/helm/helm/releases
 
@@ -187,8 +192,6 @@ Charts can be stored on disk, or fetched from remote chart repositories (like De
       $ helm version
 
         Client: &version.Version{SemVer:"v2.11.0", GitCommit:"2e55dbe1fdb5fdb96b75ff144a339489417b146b", GitTreeState:"clean"}
-
-
 
 ### Installing Tiller
 
@@ -211,7 +214,7 @@ Tiller, the server portion of Helm, typically runs inside of your Kubernetes clu
 
       $ helm create wordpress
 
-      $ helm install --name wordpress wordpress  --set nfs.server=x.x.x.x
+      $ helm install --name wordpress wordpress  --set nfs.server=x.x.x.x    #--set is optional.
 
       $ helm ls
 
