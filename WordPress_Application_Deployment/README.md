@@ -145,9 +145,9 @@ Reference: https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordp
 
 # Helm (Optional)
 
-### Installing the helm client
+### Installing the Helm client
 
-### Method 1: Installing Helm and Tiller.
+### Method 1: Installing Helm and Tiller
 
 - Install helm with bash commands
 
@@ -175,7 +175,7 @@ Reference: https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordp
 
    kubectl get deploy,svc tiller-deploy -n kube-system
    
-### Method 2: Installing Helm and Tiller.
+### Method 2: Installing Helm and Tiller
 
 - Download your desired version https://github.com/helm/helm/releases
 
