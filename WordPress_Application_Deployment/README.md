@@ -10,7 +10,7 @@ Reference: https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordp
 
     $ sudo ./nfs.sh
  
- Note: If you do not have NFS Server setup, you can make use of hostPath in PV. Refer: wordpress-mysql-hostpath.yaml
+ Note: If you do not have NFS Server setup, you can make use of hostPath in PV. Refer: wordpress-mysql-pv-hostpath.yml
 
 
 # K8s
